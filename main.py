@@ -130,11 +130,11 @@ def ajouter_point(nom):
 
         scores[nom] += 1
         sauvegarder_scores()
-        print(f"{nom} a maintenant {scores[nom]} points.")
+        
 
 def nb_cartes(nomb):
     fonte = pygame.font.Font("assets/ecriture.ttf",35)
-    text = fonte.render(f"{scores[nomb]} cartes collectées",1,(255,255,255))
+    text = fonte.render(f"{scores[nomb]} carte collectées",1,(255,255,255))
     fenetre.blit(text,(425,580))
         
 
