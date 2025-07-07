@@ -134,7 +134,7 @@ def ajouter_point(nom):
 
 def nb_cartes(nomb):
     fonte = pygame.font.Font("assets/ecriture.ttf",35)
-    text = fonte.render(f"{scores[nomb]} carte collectées",1,(255,255,255))
+    text = fonte.render(f"{scores[nomb]} cartes collectées",1,(255,255,255))
     fenetre.blit(text,(425,580))
         
 
