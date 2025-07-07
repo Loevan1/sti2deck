@@ -12,7 +12,7 @@ liste_carte=0
 accueil=1
 tirage_fenetre=0
 
-loevan_save=0
+
 
 random.seed(time.time()) 
 
@@ -121,6 +121,12 @@ affi = {
     'antoine': 0,
 }
 
+def nombre_total_cartes():
+    total_cartes= sum(scores.values())
+    fonte = pygame.font.Font("assets/ecriture.ttf",35)
+    text = fonte.render(f"{total_cartes} cartes collectées",1,(255,255,255))
+    fenetre.blit(text,(400,510))
+
 def ajouter_point(nom):
     if nom in scores:
         if scores[nom]==0:
@@ -190,6 +196,7 @@ while accueil:
     fenetre.blit(fond,(0,0))
     fenetre.blit(add,(400,550))
     fenetre.blit(liste,(550,550))
+    nombre_total_cartes()
     for event in pygame.event.get():
            if event.type == QUIT:
                accueil=0
