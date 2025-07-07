@@ -24,6 +24,7 @@ coffre= pygame.transform.smoothscale(pygame.image.load("assets/coffre.png"),(600
 add=pygame.transform.smoothscale(pygame.image.load("assets/add_friend.png"),(100,100))
 liste=pygame.transform.smoothscale(pygame.image.load("assets/liste.png"),(100,100))
 home=pygame.transform.smoothscale(pygame.image.load("assets/home.png"),(50,50))
+stat=pygame.transform.smoothscale(pygame.image.load("assets/stat.png"),(100,100))
 xadd=0
 yadd=0
 xliste=0
@@ -186,6 +187,7 @@ def sauvegarder_scores():
         js.window.localStorage.setItem(nom, str(score))
 
 
+compte=0
 carte_grande=0        
 click=0
 maxclick=5
@@ -196,7 +198,8 @@ while accueil:
     fenetre.blit(fond,(0,0))
     fenetre.blit(add,(400,550))
     fenetre.blit(liste,(550,550))
-    nombre_total_cartes()
+    fenetre.blit(stat,(0,0))
+    
     for event in pygame.event.get():
            if event.type == QUIT:
                accueil=0
@@ -207,8 +210,23 @@ while accueil:
                     
                 if (xpos>550 and xpos<550+100) and (ypos>550 and ypos<550+100):
                     liste_carte=1
+                if (xpos>0 and xpos<0+100) and (ypos>0 and ypos<0+100):
+                    compte=1
                     
+    while compte:
+        fenetre.blit(fon, (0, 0)) 
+        fenetre.blit(home,(0,0))
+        nombre_total_cartes()
+
+        for event in pygame.event.get():
+           
+           if event.type == pygame.MOUSEBUTTONDOWN:
+                xpos,ypos=event.pos
                 
+                if (xpos>0 and xpos<0+100) and (ypos>0 and ypos<0+100):
+                    compte=0
+        pygame.display.flip()
+
     while tirage_fenetre:
         
         
