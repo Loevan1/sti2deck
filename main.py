@@ -186,6 +186,18 @@ def sauvegarder_scores():
     for nom, score in scores.items():
         js.window.localStorage.setItem(nom, str(score))
 
+probabilite_dict = dict(zip(éléments, probabilités))
+
+def classement_calcul():
+    score_classement = 0
+    for carte, nb in scores.items():
+        proba = probabilite_dict.get(carte, 0)
+        valeur = nb * (10-proba)
+        score_classement += round(valeur)
+    fonte = pygame.font.Font("assets/ecriture.ttf",35)
+    text = fonte.render(f"{score_classement} points au classement",1,(255,255,255))
+    fenetre.blit(text,(500,80))
+
 
 compte=0
 carte_grande=0        
@@ -217,6 +229,7 @@ while accueil:
         fenetre.blit(fon, (0, 0)) 
         fenetre.blit(home,(0,0))
         nombre_total_cartes()
+        classement_calcul()
 
         for event in pygame.event.get():
            
