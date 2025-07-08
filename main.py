@@ -198,7 +198,12 @@ def classement_calcul():
     text = fonte.render(f"{score_classement} points au classement",1,(255,255,255))
     fenetre.blit(text,(500,80))
 
+pseudo=''
 
+def choisir_pseudo():
+    fonte = pygame.font.Font("assets/ecriture.ttf",35)
+    text = fonte.render(f"pseudo : {pseudo}",1,(255,255,255))
+    fenetre.blit(text,(500,300))
 compte=0
 carte_grande=0        
 click=0
@@ -230,9 +235,12 @@ while accueil:
         fenetre.blit(home,(0,0))
         nombre_total_cartes()
         classement_calcul()
-
+        choisir_pseudo()
         for event in pygame.event.get():
-           
+           if event.type == pygame.KEYDOWN:
+            if event.unicode != '':
+                code_unicode = f"{event.unicode}"
+                pseudo+=code_unicode
            if event.type == pygame.MOUSEBUTTONDOWN:
                 xpos,ypos=event.pos
                 
