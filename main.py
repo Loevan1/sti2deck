@@ -4,6 +4,7 @@ from random import*
 import random
 import js
 import time
+from js import document
 pygame.init()
 fps=60
 timer= pygame.time.Clock()
@@ -209,6 +210,7 @@ else :
 
 
 
+
 def choisir_pseudo():
     
     fonte = pygame.font.Font("assets/ecriture.ttf",35)
@@ -248,16 +250,16 @@ while accueil:
         classement_calcul()
         choisir_pseudo()
         
+        
 
         for event in pygame.event.get():
-           if event.type == pygame.KEYDOWN:
-            if event.unicode != '' and confirmation ==0:
-                code_unicode = f"{event.unicode}"
-                pseudo+=code_unicode
+            if event.type == pygame.KEYDOWN:
+                if event.unicode != '' and confirmation ==0:
+                    code_unicode = f"{event.unicode}"
+                    pseudo+=code_unicode
             if event.type == pygame.MOUSEBUTTONDOWN:
                 xpos,ypos=event.pos
-               
-
+                
                 if (xpos>0 and xpos<0+100) and (ypos>0 and ypos<0+100):
                     compte=0
                 if (xpos>50 and xpos<50+100) and (ypos>400 and ypos<400+100):
