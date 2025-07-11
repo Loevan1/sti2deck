@@ -207,12 +207,38 @@ if js.window.localStorage.getItem('pseudo') != None:
 else :
     pseudo=''
 
+def setup_mobile_keyboard():
+    input_element = js.document.createElement("input")
+    input_element.type = "text"
+    input_element.id = "mobile-input"
+    input_element.autocapitalize = "off"
+    input_element.autocomplete = "off"
+    input_element.style.position = "absolute"
+    input_element.style.top = "0"
+    input_element.style.left = "0"
+    input_element.style.opacity = "0"
+    input_element.style.zIndex = "9999"
 
+    js.document.body.appendChild(input_element)
+
+    # Quand on tape une lettre
+    def on_input(event):
+        global pseudo, confirmation
+        value = event.target.value
+        if value:
+            pseudo += value
+                
+
+    
+
+    input_element.addEventListener("input", js.python_proxy(on_input))
+    input_element.focus()
 
 def choisir_pseudo():
+    
     fonte = pygame.font.Font("assets/ecriture.ttf",35)
     text = fonte.render(f"pseudo : {pseudo}",1,(255,255,255))
-    fenetre.blit(text,(500,300))
+    fenetre.blit(text,(500,200))
 compte=0
 carte_grande=0        
 click=0
@@ -246,6 +272,7 @@ while accueil:
         nombre_total_cartes()
         classement_calcul()
         choisir_pseudo()
+        
         for event in pygame.event.get():
            if event.type == pygame.KEYDOWN:
             if event.unicode != '' and confirmation ==0:
@@ -253,7 +280,8 @@ while accueil:
                 pseudo+=code_unicode
            if event.type == pygame.MOUSEBUTTONDOWN:
                 xpos,ypos=event.pos
-                
+                setup_mobile_keyboard() 
+                           
                 if (xpos>0 and xpos<0+100) and (ypos>0 and ypos<0+100):
                     compte=0
                 if (xpos>50 and xpos<50+100) and (ypos>400 and ypos<400+100):
