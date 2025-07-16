@@ -4,7 +4,10 @@ from random import*
 import random
 import js
 import time
-from js import document
+import json
+import asyncio
+
+
 pygame.init()
 fps=60
 timer= pygame.time.Clock()
@@ -191,7 +194,9 @@ def sauvegarder_scores():
 probabilite_dict = dict(zip(éléments, probabilités))
 
 def classement_calcul():
+    global score_classement
     score_classement = 0
+    
     for carte, nb in scores.items():
         proba = probabilite_dict.get(carte, 0)
         valeur = nb * (10-proba)
@@ -216,11 +221,40 @@ def choisir_pseudo():
     fonte = pygame.font.Font("assets/ecriture.ttf",35)
     text = fonte.render(f"pseudo : {pseudo}",1,(255,255,255))
     fenetre.blit(text,(500,200))
+
+
+async def envoie_data():
+    ws = js.WebSocket.new("ws://192.168.1.106:8765")  
+
+    def on_open(event):
+        print("WebSocket ouvert")
+        payload = json.dumps({
+            "id": js.window.localStorage.getItem("pseudo"),
+            "score": score_classement
+        })
+        ws.send(payload)
+
+
+    def on_error(event):
+        print("Erreur WebSocket")
+        
+    def on_close(event):
+        print("WebSocket fermé")
+        
+        
+    ws.addEventListener("open", on_open)
+    ws.addEventListener("error", on_error)
+    ws.addEventListener("close", on_close)
+  
+
+
 compte=0
 carte_grande=0        
 click=0
 maxclick=5
 dernier_tirage_fait=False
+
+webenvoye=False
 
 while accueil:
     charger_scores()
@@ -246,6 +280,7 @@ while accueil:
         fenetre.blit(fon, (0, 0)) 
         fenetre.blit(home,(0,0))
         fenetre.blit(confir_bouton,(50,400))
+        
         nombre_total_cartes()
         classement_calcul()
         choisir_pseudo()
@@ -266,7 +301,9 @@ while accueil:
                     confirmation = 1    
                     js.window.localStorage.setItem('pseudo', str(pseudo))
         pygame.display.flip()
-
+        if webenvoye == False:
+            asyncio.ensure_future(envoie_data())
+            webenvoye= True
     while tirage_fenetre:
         
         
