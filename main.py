@@ -267,7 +267,9 @@ while accueil:
         classement_calcul()
         choisir_pseudo()
         
-        
+        if webenvoye == False:
+            window.envoyerDepuisJS(score_classement)
+            webenvoye=True
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -279,9 +281,12 @@ while accueil:
                 
                 if (xpos>0 and xpos<0+100) and (ypos>0 and ypos<0+100):
                     compte=0
+                    webenvoye=False
                 if (xpos>50 and xpos<50+100) and (ypos>400 and ypos<400+100):
                     confirmation = 1    
                     js.window.localStorage.setItem('pseudo', str(pseudo))
+        
+
         pygame.display.flip()
         
     while tirage_fenetre:
