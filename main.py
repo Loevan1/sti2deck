@@ -4,8 +4,7 @@ from random import*
 import random
 import js
 import time
-import json
-import asyncio
+from js import window
 
 
 pygame.init()
@@ -223,29 +222,12 @@ def choisir_pseudo():
     fenetre.blit(text,(500,200))
 
 
-async def envoie_data():
-    ws = js.WebSocket.new("ws://192.168.1.106:8765")  
-
-    def on_open(event):
-        print("WebSocket ouvert")
-        payload = json.dumps({
-            "id": js.window.localStorage.getItem("pseudo"),
-            "score": score_classement
-        })
-        ws.send(payload)
+window.envoyerDepuisJS(pseudo)
 
 
-    def on_error(event):
-        print("Erreur WebSocket")
-        
-    def on_close(event):
-        print("WebSocket fermé")
-        
-        
-    ws.addEventListener("open", on_open)
-    ws.addEventListener("error", on_error)
-    ws.addEventListener("close", on_close)
-  
+
+
+
 
 
 compte=0
@@ -301,9 +283,7 @@ while accueil:
                     confirmation = 1    
                     js.window.localStorage.setItem('pseudo', str(pseudo))
         pygame.display.flip()
-        if webenvoye == False:
-            asyncio.ensure_future(envoie_data())
-            webenvoye= True
+        
     while tirage_fenetre:
         
         

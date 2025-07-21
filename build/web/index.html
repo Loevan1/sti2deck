@@ -263,7 +263,27 @@ config = {
 
 
     <link rel="icon" type="image/png" href="favicon.png" sizes="16x16">
+    <script>
+        let ws = new WebSocket("ws://localhost:8765");
 
+        ws.onopen = () => {
+            console.log("WebSocket connecté");
+            
+        };
+
+        ws.onmessage = (event) => {
+            console.log("Message du serveur :", event.data);
+        };
+
+        ws.onerror = (error) => {
+            console.error("Erreur WebSocket :", error);
+        };
+        function envoyerDepuisJS(message) {
+            ws.send(message);
+        }
+        
+        
+    </script>
     <style>
         #status {
             display: inline-block;
