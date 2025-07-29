@@ -5,6 +5,9 @@ import random
 import js
 import time
 from js import window
+import json
+
+
 
 
 pygame.init()
@@ -221,12 +224,20 @@ def choisir_pseudo():
     text = fonte.render(f"pseudo : {pseudo}",1,(255,255,255))
     fenetre.blit(text,(500,200))
 
-
+def affiche_classement():
+    
+    message_serveur = window.messageRecu
+    fonte = pygame.font.Font("assets/ecriture.ttf",35)
+    text = fonte.render(f"classement : {message_serveur}",1,(255,255,255))
+    fenetre.blit(text,(500,300))
+    
 window.envoyerDepuisJS(pseudo)
 
 
 
-
+data={"pseudo": "Loevan",
+      "score": 17}
+jsonData= json.dumps(data, indent=2)
 
 
 
@@ -266,9 +277,11 @@ while accueil:
         nombre_total_cartes()
         classement_calcul()
         choisir_pseudo()
-        
+        affiche_classement()
         if webenvoye == False:
             window.envoyerDepuisJS(score_classement)
+            window.envoyerDepuisJS(jsonData)
+            
             webenvoye=True
 
         for event in pygame.event.get():
