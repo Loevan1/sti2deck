@@ -203,6 +203,7 @@ def classement_calcul():
         proba = probabilite_dict.get(carte, 0)
         valeur = nb * (10-proba)
         score_classement += round(valeur)
+    js.window.localStorage.setItem("score", int(score_classement ))
     fonte = pygame.font.Font("assets/ecriture.ttf",35)
     text = fonte.render(f"{score_classement} points au classement",1,(255,255,255))
     fenetre.blit(text,(500,80))
@@ -231,13 +232,12 @@ def affiche_classement():
     text = fonte.render(f"classement : {message_serveur}",1,(255,255,255))
     fenetre.blit(text,(500,300))
     
-window.envoyerDepuisJS(pseudo)
 
 
-
-data={"pseudo": "Loevan",
-      "score": 17}
-jsonData= json.dumps(data, indent=2)
+def encodage_json():
+    data = {"pseudo": js.window.localStorage.getItem('pseudo'), "score": int(js.window.localStorage.getItem('score'))}
+    JsonData=json.dumps(data)
+    return JsonData
 
 
 
@@ -273,15 +273,16 @@ while accueil:
         fenetre.blit(fon, (0, 0)) 
         fenetre.blit(home,(0,0))
         fenetre.blit(confir_bouton,(50,400))
-        
         nombre_total_cartes()
-        classement_calcul()
         choisir_pseudo()
         affiche_classement()
+        classement_calcul()
+        
         if webenvoye == False:
-            window.envoyerDepuisJS(score_classement)
-            window.envoyerDepuisJS(jsonData)
             
+            window.envoyerDepuisJS(score_classement)
+            window.envoyerDepuisJS(pseudo)
+            window.envoyerDepuisJS(encodage_json())
             webenvoye=True
 
         for event in pygame.event.get():
