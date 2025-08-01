@@ -229,8 +229,8 @@ def affiche_classement():
     
     message_serveur = window.messageRecu
     fonte = pygame.font.Font("assets/ecriture.ttf",35)
-    text = fonte.render(f"classement : {message_serveur}",1,(255,255,255))
-    fenetre.blit(text,(500,300))
+    text = fonte.render(f"{message_serveur}",1,(255,255,255))
+    fenetre.blit(text,(50,100))
     
 
 
@@ -280,8 +280,7 @@ while accueil:
         
         if webenvoye == False:
             
-            window.envoyerDepuisJS(score_classement)
-            window.envoyerDepuisJS(pseudo)
+           
             window.envoyerDepuisJS(encodage_json())
             webenvoye=True
 
