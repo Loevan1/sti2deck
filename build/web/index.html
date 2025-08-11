@@ -264,7 +264,7 @@ config = {
 
     <link rel="icon" type="image/png" href="favicon.png" sizes="16x16">
     <script>
-        let ws = new WebSocket("ws://192.168.1.106:8765");
+        let ws = new WebSocket("wss://https://test-serveur-u9mf.onrender.com");
         window.messageRecu = "okay";
         ws.onopen = () => {
             console.log("WebSocket connecté");
