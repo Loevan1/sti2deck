@@ -264,8 +264,8 @@ config = {
 
     <link rel="icon" type="image/png" href="favicon.png" sizes="16x16">
     <script>
-        let ws = new WebSocket("wss://https://test-serveur-u9mf.onrender.com");
-        window.messageRecu = "okay";
+        let ws = new WebSocket("wss://87f977cb-3a49-45a7-9b6c-3baf4da3adcf-00-1q5jfhosoao7v.spock.replit.dev/");
+        window.messageRecu = "";
         ws.onopen = () => {
             console.log("WebSocket connecté");
             
@@ -279,8 +279,12 @@ config = {
         ws.onerror = (error) => {
             console.error("Erreur WebSocket :", error);
         };
+        ws.onclose = () => {
+            console.log("c'est ferme");
+        };
         function envoyerDepuisJS(message) {
             ws.send(message);
+            
         }
         
         
