@@ -197,16 +197,15 @@ probabilite_dict = dict(zip(éléments, probabilités))
 
 def classement_calcul():
     global score_classement
-    score_classement = 0
+    score_classement=0
     
     for carte, nb in scores.items():
         proba = probabilite_dict.get(carte, 0)
         valeur = nb * (10-proba)
         score_classement += round(valeur)
     js.window.localStorage.setItem("score", int(score_classement ))
-    fonte = pygame.font.Font("assets/ecriture.ttf",35)
-    text = fonte.render(f"{score_classement} points au classement",1,(255,255,255))
-    fenetre.blit(text,(500,80))
+    return score_classement
+    
 
 confirmation = 0
 if js.window.localStorage.getItem('pseudo') != None:
@@ -231,6 +230,9 @@ def affiche_classement():
     fonte = pygame.font.Font("assets/ecriture.ttf",35)
     text = fonte.render(f"{message_serveur}",1,(255,255,255))
     fenetre.blit(text,(50,100))
+    texte = fonte.render(f"{classement_calcul()} points au classement",1,(255,255,255))
+    fenetre.blit(texte,(500,80))
+
     
 
 
