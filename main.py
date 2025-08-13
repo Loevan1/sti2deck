@@ -277,12 +277,10 @@ while accueil:
         choisir_pseudo()
         affiche_classement()
         classement_calcul()
-        
         if webenvoye == False:
-            
-           
             window.envoyerDepuisJS(encodage_json())
-            webenvoye=True
+            webenvoye=True        
+        
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -321,7 +319,10 @@ while accueil:
                 ajouter_point(nom)
                 pygame.display.flip()
                 dernier_tirage_fait=True
+                
                 time.sleep(0.4)
+                
+                
         if not dernier_tirage_fait:
             fenetre.blit(fond_tirage, (0, 0))
             fenetre.blit(coffre, (240, 100))
@@ -331,7 +332,9 @@ while accueil:
             dernier_tirage_fait=False   
             tirage_fenetre=0 
             click=0   
-                
+            classement_calcul()
+            window.envoyerDepuisJS(encodage_json())
+             
         pygame.display.flip()
     
     while liste_carte:
