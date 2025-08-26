@@ -6,7 +6,7 @@ import js
 import time
 from js import window
 import json
-
+from js import document
 
 
 
@@ -26,6 +26,7 @@ fon=pygame.image.load("assets/fond.png")
 fond=pygame.image.load("assets/fondd.png")
 fond_tirage=pygame.image.load("assets/fond_tirage.png")
 fond_cartes=pygame.transform.smoothscale(pygame.image.load("assets/fond_cartes.png"),(1068,700))
+start=pygame.transform.smoothscale(pygame.image.load("assets/start.png"),(1068,700))
 coffre= pygame.transform.smoothscale(pygame.image.load("assets/coffre.png"),(600,450))
 add=pygame.transform.smoothscale(pygame.image.load("assets/add_friend.png"),(100,100))
 liste=pygame.transform.smoothscale(pygame.image.load("assets/liste.png"),(100,100))
@@ -133,7 +134,7 @@ def nombre_total_cartes():
     total_cartes= sum(scores.values())
     fonte = pygame.font.Font("assets/ecriture.ttf",35)
     text = fonte.render(f"{total_cartes} cartes collectées",1,(255,255,255))
-    fenetre.blit(text,(400,510))
+    fenetre.blit(text,(540,510))
 
 def ajouter_point(nom):
     if nom in scores:
@@ -206,14 +207,13 @@ def classement_calcul():
     js.window.localStorage.setItem("score", int(score_classement ))
     return score_classement
     
+starter=0
 
-confirmation = 0
 if js.window.localStorage.getItem('pseudo') != None:
-    confirmation=1
     pseudo=js.window.localStorage.getItem('pseudo')
     
 else :
-    pseudo=''
+    starter=1
 
 
 
@@ -222,7 +222,7 @@ def choisir_pseudo():
     
     fonte = pygame.font.Font("assets/ecriture.ttf",35)
     text = fonte.render(f"pseudo : {pseudo}",1,(255,255,255))
-    fenetre.blit(text,(500,200))
+    fenetre.blit(text,(540,80))
 
 def affiche_classement():
     
@@ -231,7 +231,7 @@ def affiche_classement():
     text = fonte.render(f"{message_serveur}",1,(255,255,255))
     fenetre.blit(text,(50,100))
     texte = fonte.render(f"{classement_calcul()} points au classement",1,(255,255,255))
-    fenetre.blit(texte,(500,80))
+    fenetre.blit(texte,(540,150))
 
     
 
@@ -252,54 +252,143 @@ dernier_tirage_fait=False
 webenvoye=False
 
 while accueil:
+    while starter:
+        fenetre.blit(start,(0,0))
+        
+        for event in pygame.event.get():
+           
+            if event.type == QUIT:
+               starter=0
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                xpos,ypos=event.pos
+                
+                if (xpos>50 and xpos<180) and (ypos>47 and ypos<247):
+                    pseudo="noah"
+                    starter=0
+                if (xpos>190 and xpos<320) and (ypos>47 and ypos<247):
+                    pseudo="gweltaz"
+                    starter=0
+                if (xpos>330 and xpos<460) and (ypos>47 and ypos<247):
+                    pseudo="illy"
+                    starter=0
+            
+                if (xpos>470 and xpos<600) and (ypos>47 and ypos<247):
+                    pseudo="laou"
+                    starter=0
+            
+                if (xpos>610 and xpos<740) and (ypos>47 and ypos<247):
+                    pseudo="laou"
+                    starter=0
+            
+                if (xpos>750 and xpos<880) and (ypos>47 and ypos<247):
+                    pseudo="mathys"
+                    starter=0
+                if (xpos>890 and xpos<1020) and (ypos>47 and ypos<247):
+                    pseudo="erenn"
+                    starter=0
+
+            
+                if (xpos>50 and xpos<180) and (ypos>257 and ypos<457):
+                    pseudo="alwyn"
+                    starter=0
+            
+                if (xpos>190 and xpos<320) and (ypos>257 and ypos<457):
+                    pseudo="enzo"
+                    starter=0
+            
+                if (xpos>330 and xpos<460) and (ypos>257 and ypos<457):
+                    pseudo="evanne"
+                    starter=0
+            
+                if (xpos>470 and xpos<600) and (ypos>257 and ypos<457):
+                    pseudo="lucas"
+                    starter=0
+                    
+            
+                if (xpos>610 and xpos<740) and (ypos>257 and ypos<457):
+                    pseudo="youn"
+                    starter=0
+            
+            
+                if (xpos>750 and xpos<880) and (ypos>257 and ypos<457):
+                    pseudo="evhann"
+                    starter=0
+            
+                if (xpos>890 and xpos<1020) and (ypos>257 and ypos<457):
+                    pseudo="antoine"
+                    starter=0
+            
+                if (xpos>50 and xpos<180) and (ypos>467 and ypos<667):
+                    pseudo="nathan"
+                    starter=0
+            
+                if (xpos>190 and xpos<320) and (ypos>467 and ypos<667):
+                    pseudo="malo"
+                    starter=0
+            
+                if (xpos>330 and xpos<460) and (ypos>467 and ypos<667):
+                    pseudo="theo"
+                    starter=0
+                if (xpos>750 and xpos<880) and (ypos>467 and ypos<667):
+                    pseudo="yann"  
+                    starter=0          
+                if (xpos>890 and xpos<1020) and (ypos>467 and ypos<667):
+                    pseudo="hugo"
+                    starter=0
+                if (xpos>610 and xpos<740) and (ypos>467 and ypos<667):
+                    pseudo="elliot"
+                    starter=0
+                if (xpos>470 and xpos<600) and (ypos>467 and ypos<667):
+                    pseudo="awen"
+                    starter=0
+            if starter==0:
+                js.window.localStorage.setItem("pseudo", pseudo)
+        pygame.display.flip()
+
+
     charger_scores()
     fenetre.blit(fond,(0,0))
-    fenetre.blit(add,(400,550))
-    fenetre.blit(liste,(550,550))
-    fenetre.blit(stat,(0,0))
+    fenetre.blit(add,(334,550))
+    fenetre.blit(liste,(484,550))
+    fenetre.blit(stat,(634,550))
     
     for event in pygame.event.get():
            if event.type == QUIT:
                accueil=0
            if event.type == pygame.MOUSEBUTTONDOWN:
                 xpos,ypos=event.pos
-                if (xpos>400 and xpos<400+100) and (ypos>550 and ypos<550+100):
+                if (xpos>334 and xpos<334+100) and (ypos>550 and ypos<550+100):
                     tirage_fenetre=1
                     
-                if (xpos>550 and xpos<550+100) and (ypos>550 and ypos<550+100):
+                if (xpos>484 and xpos<484+100) and (ypos>550 and ypos<550+100):
                     liste_carte=1
-                if (xpos>0 and xpos<0+100) and (ypos>0 and ypos<0+100):
+                if (xpos>634 and xpos<634+100) and (ypos>550 and ypos<550+100):
                     compte=1
                     
     while compte:
         fenetre.blit(fon, (0, 0)) 
         fenetre.blit(home,(0,0))
-        fenetre.blit(confir_bouton,(50,400))
+        
         nombre_total_cartes()
         choisir_pseudo()
         affiche_classement()
         classement_calcul()
+        
         if webenvoye == False:
             window.envoyerDepuisJS(encodage_json())
             webenvoye=True        
         
 
         for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.unicode != '' and confirmation ==0:
-                    code_unicode = f"{event.unicode}"
-                    pseudo+=code_unicode
+            
             if event.type == pygame.MOUSEBUTTONDOWN:
                 xpos,ypos=event.pos
                 
                 if (xpos>0 and xpos<0+100) and (ypos>0 and ypos<0+100):
                     compte=0
                     webenvoye=False
-                if (xpos>50 and xpos<50+100) and (ypos>400 and ypos<400+100):
-                    confirmation = 1    
-                    js.window.localStorage.setItem('pseudo', str(pseudo))
+                
         
-
         pygame.display.flip()
         
     while tirage_fenetre:
