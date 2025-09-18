@@ -38,6 +38,7 @@ yadd=0
 xliste=0
 yliste=50
 
+lettres=pygame.image.load("assets/lettre.png")
 etoile1=pygame.transform.smoothscale(pygame.image.load("assets/1.1.png"),(50,50))
 etoile2=pygame.transform.smoothscale(pygame.image.load("assets/1.2.png"),(50,50))
 etoile3=pygame.transform.smoothscale(pygame.image.load("assets/1.3.png"),(50,50))
@@ -207,14 +208,13 @@ def classement_calcul():
     js.window.localStorage.setItem("score", int(score_classement ))
     return score_classement
     
-starter=0
+alphabet=0
 
-if js.window.localStorage.getItem('pseudo') == None or js.window.localStorage.getItem('pseudo') == "":
-    starter=1
+pseudo=js.window.localStorage.getItem('pseudo_yeti')
+if pseudo == None or pseudo=="null":
+    pseudo=""
+    alphabet=1
     
-else :
-   
-    pseudo=js.window.localStorage.getItem('pseudo')
 
 
 
@@ -234,11 +234,15 @@ def affiche_classement():
     texte = fonte.render(f"{classement_calcul()} points au classement",1,(255,255,255))
     fenetre.blit(texte,(540,150))
 
+def afficherpseudo():
+    fonte = pygame.font.Font('assets/ecriture.ttf',60)
+    text = fonte.render(f"pseudo : {pseudo}",1,(0,0,0))
     
+    fenetre.blit(text,(50,100))
 
 
 def encodage_json():
-    data = {"pseudo": js.window.localStorage.getItem('pseudo'), "score": int(js.window.localStorage.getItem('score'))}
+    data = {"pseudo": js.window.localStorage.getItem('pseudo_yeti'), "score": int(js.window.localStorage.getItem('score'))}
     JsonData=json.dumps(data)
     return JsonData
 
@@ -253,119 +257,6 @@ dernier_tirage_fait=False
 webenvoye=False
 
 while accueil:
-    while starter:
-        fenetre.blit(start,(0,0))
-        
-        for event in pygame.event.get():
-           
-            if event.type == QUIT:
-               starter=0
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                xpos,ypos=event.pos
-                
-                if (xpos>50 and xpos<180) and (ypos>47 and ypos<247):
-                    pseudo="noah"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-                if (xpos>190 and xpos<320) and (ypos>47 and ypos<247):
-                    pseudo="gweltaz"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-                if (xpos>330 and xpos<460) and (ypos>47 and ypos<247):
-                    pseudo="illy"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-            
-                if (xpos>470 and xpos<600) and (ypos>47 and ypos<247):
-                    pseudo="laou"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-            
-                if (xpos>610 and xpos<740) and (ypos>47 and ypos<247):
-                    pseudo="loevan"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-            
-                if (xpos>750 and xpos<880) and (ypos>47 and ypos<247):
-                    pseudo="mathys"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-                if (xpos>890 and xpos<1020) and (ypos>47 and ypos<247):
-                    pseudo="erenn"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-
-            
-                if (xpos>50 and xpos<180) and (ypos>257 and ypos<457):
-                    pseudo="alwyn"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-            
-                if (xpos>190 and xpos<320) and (ypos>257 and ypos<457):
-                    pseudo="enzo"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-            
-                if (xpos>330 and xpos<460) and (ypos>257 and ypos<457):
-                    pseudo="evanne"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-            
-                if (xpos>470 and xpos<600) and (ypos>257 and ypos<457):
-                    pseudo="lucas"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-            
-                if (xpos>610 and xpos<740) and (ypos>257 and ypos<457):
-                    pseudo="youn"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-            
-            
-                if (xpos>750 and xpos<880) and (ypos>257 and ypos<457):
-                    pseudo="evhann"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-            
-                if (xpos>890 and xpos<1020) and (ypos>257 and ypos<457):
-                    pseudo="antoine"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-            
-                if (xpos>50 and xpos<180) and (ypos>467 and ypos<667):
-                    pseudo="nathan"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-            
-                if (xpos>190 and xpos<320) and (ypos>467 and ypos<667):
-                    pseudo="malo"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-            
-                if (xpos>330 and xpos<460) and (ypos>467 and ypos<667):
-                    pseudo="theo"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-                if (xpos>750 and xpos<880) and (ypos>467 and ypos<667):
-                    pseudo="yann"  
-                    starter=0   
-                    js.window.localStorage.setItem("pseudo", pseudo)       
-                if (xpos>890 and xpos<1020) and (ypos>467 and ypos<667):
-                    pseudo="hugo"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-                if (xpos>610 and xpos<740) and (ypos>467 and ypos<667):
-                    pseudo="elliot"
-                    starter=0
-                    js.window.localStorage.setItem("pseudo", pseudo)
-                if (xpos>470 and xpos<600) and (ypos>467 and ypos<667):
-                    pseudo="awen"
-                    js.window.localStorage.setItem("pseudo", pseudo)
-                    starter=0
-            
-        pygame.display.flip()
-
-
     charger_scores()
     fenetre.blit(fond,(0,0))
     fenetre.blit(add,(334,550))
@@ -388,7 +279,6 @@ while accueil:
     while compte:
         fenetre.blit(fon, (0, 0)) 
         fenetre.blit(home,(0,0))
-        
         nombre_total_cartes()
         choisir_pseudo()
         affiche_classement()
@@ -408,7 +298,82 @@ while accueil:
                     compte=0
                     webenvoye=False
                 
-        
+        while alphabet:
+            fenetre.blit(lettres,(0,0))        
+            afficherpseudo()
+            fx = 1068/720
+            fy=700/400
+            for event in pygame.event.get():   
+                
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    xpos,ypos=event.pos
+                    if (xpos>620*fx and xpos<(620+75)*fx) and (ypos>35*fy and ypos<(35+75)*fy):
+                        js.window.localStorage.setItem("pseudo_yeti", pseudo)
+                        alphabet=0
+                    if (xpos>30*fx and xpos<(30+75)*fx) and (ypos>130*fy and ypos<(130+75)*fy):
+                        pseudo+="A"
+                    if (xpos>105*fx and xpos<(105+75)*fx) and (ypos>130*fy and ypos<(130+75)*fy):
+                        pseudo+="B"
+                    if (xpos>180*fx and xpos<(180+75)*fx) and (ypos>130*fy and ypos<(130+75)*fy):
+                        pseudo+="C"
+                    if (xpos>255*fx and xpos<(255+75)*fx) and (ypos>130*fy and ypos<(130+75)*fy):
+                        pseudo+="D"
+                    if (xpos>330*fx and xpos<(330+75)*fx) and (ypos>130*fy and ypos<(130+75)*fy):
+                        pseudo+="E"
+                    if (xpos>405*fx and xpos<(405+75)*fx) and (ypos>130*fy and ypos<(130+75)*fy):
+                        pseudo+="F"
+                    if (xpos>480*fx and xpos<(480+75)*fx) and (ypos>130*fy and ypos<(130+75)*fy):
+                        pseudo+="G"
+                    if (xpos>555*fx and xpos<(555+75)*fx) and (ypos>130*fy and ypos<(130+75)*fy):
+                        pseudo+="H"
+                    if (xpos>630*fx and xpos<(630+75)*fx) and (ypos>130*fy and ypos<(130+75)*fy):
+                        pseudo+="I"
+
+
+                    if (xpos>0*fx and xpos<(0+65)*fx) and (ypos>220*fy and ypos<(220+75)*fy):
+                        pseudo+="J"
+                    if (xpos>65*fx and xpos<(65+75)*fx) and (ypos>220*fy and ypos<(220+75)*fy):
+                        pseudo+="K"
+                    if (xpos>140*fx and xpos<(140+75)*fx) and (ypos>220*fy and ypos<(220+75)*fy):
+                        pseudo+="L"
+                    if (xpos>215*fx and xpos<(215+70)*fx) and (ypos>220*fy and ypos<(220+75)*fy):
+                        pseudo+="M"
+                    if (xpos>285*fx and xpos<(285+60)*fx) and (ypos>220*fy and ypos<(220+75)*fy):
+                        pseudo+="N"
+                    
+                    if (xpos>345*fx and xpos<(345+75)*fx) and (ypos>220*fy and ypos<(220+75)*fy):
+                        pseudo+="O"
+                    if (xpos>420*fx and xpos<(420+75)*fx) and (ypos>220*fy and ypos<(220+75)*fy):
+                        pseudo+="P"
+                    if (xpos>495*fx and xpos<(495+75)*fx) and (ypos>220*fy and ypos<(220+75)*fy):
+                        pseudo+="Q"
+                    if (xpos>570*fx and xpos<(570+75)*fx) and (ypos>220*fy and ypos<(220+75)*fy):
+                        pseudo+="R"
+                    if (xpos>655*fx and xpos<(655+75)*fx) and (ypos>220*fy and ypos<(220+75)*fy):
+                        pseudo+="S"
+
+
+                    if (xpos>80*fx and xpos<(80+75)*fx) and (ypos>310*fy and ypos<(310+75)*fy):
+                        pseudo+="T"
+                    if (xpos>155*fx and xpos<(155+75)*fx) and (ypos>310*fy and ypos<(310+75)*fy):
+                        pseudo+="U"
+                    if (xpos>230*fx and xpos<(230+75)*fx) and (ypos>310*fy and ypos<(310+75)*fy):
+                        pseudo+="V"
+                    if (xpos>305*fx and xpos<(305+75)*fx) and (ypos>310*fy and ypos<(310+75)*fy):
+                        pseudo+="W"
+                    if (xpos>380*fx and xpos<(380+75)*fx) and (ypos>310*fy and ypos<(310+75)*fy):
+                        pseudo+="X"
+                    if (xpos>455*fx and xpos<(455+75)*fx) and (ypos>310*fy and ypos<(310+75)*fy):
+                        pseudo+="Y"
+                    if (xpos>530*fx and xpos<(530+75)*fx) and (ypos>310*fy and ypos<(310+75)*fy):
+                        pseudo+="Z"
+
+                    if (xpos>525*fx and xpos<(525+75)*fx) and (ypos>35*fy and ypos<(35+75)*fy):
+                        pseudo=pseudo[:-1]
+                    
+                    
+                    
+            pygame.display.flip()
         pygame.display.flip()
         
     while tirage_fenetre:
